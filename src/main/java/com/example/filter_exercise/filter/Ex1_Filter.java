@@ -20,14 +20,12 @@ public class Ex1_Filter implements Filter {
         String uuid = UUID.randomUUID().toString();
 
         try {
-            log.info("REQUEST [{}][{}]", uuid, requestURI);
-            log.info("Filter 동작확인 [{}][{}]", uuid, requestURI);
+            log.info("[Filter 1] REQUEST [{}][{}]", uuid, requestURI);
             chain.doFilter(request, response);
         } catch (Exception e) {
             throw e;
         } finally {
-            log.info("RESPONSE [{}][{}]", uuid, requestURI);
+            log.info("[Filter 1] RESPONSE [{}][{}]", uuid, requestURI);
         }
     }
-
 }

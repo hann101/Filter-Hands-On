@@ -18,15 +18,18 @@ public class FilterController {
 
     /*
         Filter 예시
+        http://localhost:8080/xss?script=<script>black<script>
      */
     @GetMapping("/xss")
     public String test(@RequestParam String script) {;
-        log.info(" Xss Filtering Result :[{}]",script);
+        log.info("[Controller] Xss Filtering Result :[{}]",script);
         return "XSS";
     }
 
     /*
         OncePerRequestFilter 예시
+        http://localhost:8080/will-redirect
+        http://localhost:8080/will-forward
      */
     @GetMapping("/will-redirect")
     public void willRedirect(HttpServletResponse response) throws IOException {
