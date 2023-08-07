@@ -3,14 +3,13 @@ package com.example.filter_exercise.controller;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 @Slf4j
 @RestController
@@ -43,6 +42,9 @@ public class FilterController {
 
     @GetMapping("/will-forward")
     public void willForward(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        if (request.getSession() == null) {
+
+        }
         request.getRequestDispatcher("/forwarded").forward(request, response);
     }
 
@@ -51,4 +53,8 @@ public class FilterController {
         return "forwarded";
     }
 
+    @GetMapping("/interceptor")
+    public String interceptorTest(){
+        return "test";
+    }
 }
