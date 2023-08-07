@@ -52,9 +52,4 @@ public class FilterController {
     public String forwarded() {
         return "forwarded";
     }
-
-    @GetMapping("/interceptor")
-    public String interceptorTest(){
-        return "test";
-    }
 }

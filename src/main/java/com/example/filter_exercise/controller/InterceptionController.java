@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class InterceptionController {
+    @GetMapping("/interceptor")
+    public String interceptorTest(){
+        return "test";
+    }
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
