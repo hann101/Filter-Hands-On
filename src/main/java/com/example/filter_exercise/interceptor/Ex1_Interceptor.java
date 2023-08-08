@@ -12,13 +12,10 @@ import java.util.UUID;
 
 @Slf4j
 public class Ex1_Interceptor implements HandlerInterceptor {
-    public static final String LOG_ID = "logId";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String requestURI = request.getRequestURI();
-        String uuid = UUID.randomUUID().toString();
-        request.setAttribute(LOG_ID, uuid);
 
         log.info("[Interceptor preHandle] REQUEST [{}][{}][{}]", request.getAttribute("uuid"), requestURI, handler);
 
@@ -41,8 +38,7 @@ public class Ex1_Interceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         String requestURI = request.getRequestURI();
-        String logId = (String) request.getAttribute(LOG_ID);
-        log.info("[Interceptor afterCompletion] RESPONSE [{}][{}]", logId, requestURI);
+        log.info("[Interceptor afterCompletion] RESPONSE [{}][{}]", request.getAttribute("uuid"), requestURI);
         if (ex != null) {
             log.error("[Interceptor afterCompletion] afterCompletion error!!", ex);
         }
