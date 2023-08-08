@@ -42,9 +42,6 @@ public class FilterController {
 
     @GetMapping("/will-forward")
     public void willForward(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (request.getSession() == null) {
-
-        }
         request.getRequestDispatcher("/forwarded").forward(request, response);
     }
 

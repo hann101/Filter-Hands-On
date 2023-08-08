@@ -15,7 +15,7 @@ public class Ex2_Filter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        log.info("[Filter 2] XSS Filter");
+        log.info("[Filter 2] XSS Filter [{}]",request.getAttribute("uuid"));
         chain.doFilter(new XSSRequestWrapper((HttpServletRequest) request), response);
     }
 }

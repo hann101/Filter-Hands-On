@@ -17,10 +17,12 @@ public class Ex1_Filter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String requestURI = httpServletRequest.getRequestURI();
 
-        String uuid = UUID.randomUUID().toString();
+        String uuid = UUID.randomUUID().toString().substring(0,8);
+
+        request.setAttribute("uuid", uuid);
 
         try {
-            log.info("[Filter 1] REQUEST [{}][{}]", uuid, requestURI);
+            log.info("[Filter 1] REQUEST [{}][{}]", request.getAttribute("uuid"), requestURI);
             chain.doFilter(request, response);
         } catch (Exception e) {
             throw e;
