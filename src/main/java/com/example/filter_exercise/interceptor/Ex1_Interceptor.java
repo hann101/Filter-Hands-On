@@ -11,37 +11,6 @@ import java.util.UUID;
 
 
 @Slf4j
-public class Ex1_Interceptor implements HandlerInterceptor {
+public class Ex1_Interceptor {
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String requestURI = request.getRequestURI();
-
-        log.info("[Interceptor preHandle] REQUEST [{}][{}][{}]", request.getAttribute("uuid"), requestURI, handler);
-
-        //Session 체크
-        String session = (String) request.getSession().getAttribute("login");
-        if (session == null) {
-            log.info("[Interceptor] 미인증 사용자 요청");
-            response.sendRedirect("/login/fail");
-            return false;
-        }
-        return true; //false 진행X
-    }
-
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        log.info("[Interceptor postHandle] [{}]", modelAndView);
-        HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        String requestURI = request.getRequestURI();
-        log.info("[Interceptor afterCompletion] RESPONSE [{}][{}]", request.getAttribute("uuid"), requestURI);
-        if (ex != null) {
-            log.error("[Interceptor afterCompletion] afterCompletion error!!", ex);
-        }
-        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
-    }
 }
