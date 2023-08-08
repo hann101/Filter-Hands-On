@@ -27,7 +27,7 @@ public class InterceptionController {
         HttpSession session = request.getSession();
         String result = "not allowed";
         ;
-        if (session == null) {
+        if (session != null) {
             result = (String) session.getAttribute("login");
         }
         return result;
