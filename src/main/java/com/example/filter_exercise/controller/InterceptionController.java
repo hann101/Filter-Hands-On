@@ -11,24 +11,35 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InterceptionController {
     @GetMapping("/interceptor")
-    public String interceptorTest(){
+    public String interceptorTest() {
         return "test";
     }
+
     @GetMapping("/login")
-    public String login(HttpServletRequest request, HttpServletResponse response){
+    public String login(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        session.setAttribute("login","allow");
+        session.setAttribute("login", "allow");
         return "login success";
     }
 
-    @GetMapping("/login-info")
-    public String infoLogin(HttpServletRequest request, HttpServletResponse response){
+    @GetMapping("/login/info")
+    public String infoLogin(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        return (String) session.getAttribute("login");
+        String result = "not allowed";
+        ;
+        if (session == null) {
+            result = (String) session.getAttribute("login");
+        }
+        return result;
     }
 
-    @GetMapping("/fail")
-    public String deny(){
-        return "fail";
+    @GetMapping("/login/fail")
+    public String deny() {
+        return "deny";
+    }
+
+    @GetMapping("/interceptor/exception")
+    public void exception() throws Exception {
+        throw new Exception();
     }
 }

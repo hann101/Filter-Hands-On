@@ -20,7 +20,6 @@ public class Ex1_Interceptor implements HandlerInterceptor {
         String requestURI = request.getRequestURI();
         String uuid = UUID.randomUUID().toString();
         request.setAttribute(LOG_ID, uuid);
-        boolean result = true;
 
         log.info("[Interceptor preHandle] REQUEST [{}][{}][{}]", request.getAttribute("uuid"), requestURI, handler);
 
@@ -28,10 +27,10 @@ public class Ex1_Interceptor implements HandlerInterceptor {
         String session = (String) request.getSession().getAttribute("login");
         if (session == null) {
             log.info("[Interceptor] 미인증 사용자 요청");
-            response.sendRedirect("/interceptor/fail");
+            response.sendRedirect("/login/fail");
+            return false;
         }
-
-        return result; //false 진행X
+        return true; //false 진행X
     }
 
     @Override
