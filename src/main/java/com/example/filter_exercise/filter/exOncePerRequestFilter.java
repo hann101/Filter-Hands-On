@@ -10,18 +10,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Slf4j
-public class exOncePerRequestFilter extends OncePerRequestFilter {
+public class exOncePerRequestFilter{
     /*
         OncePerRequestFilter Filte 적용
      */
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.info("[Filter 3] OncePerRequestFilter 동작확인");
-        filterChain.doFilter(request, response);
-    }
-
-    @Override
-    protected boolean shouldNotFilterAsyncDispatch() {
-        return super.shouldNotFilterAsyncDispatch();
-    }
 }
