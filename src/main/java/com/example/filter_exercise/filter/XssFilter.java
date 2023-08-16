@@ -8,14 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 
 @Slf4j
-public class Ex2_Filter implements Filter {
+public class XssFilter implements Filter{
     /*
         XSS Filter 적용
      */
-
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        log.info("[Filter 2] XSS Filter [{}]",request.getAttribute("uuid"));
+        try{
+        log.info("  [Filter2] Request Xss Filter");
         chain.doFilter(new XSSRequestWrapper((HttpServletRequest) request), response);
+        }finally {
+        log.info("  [Filter2] Response Xss Filter");
+        }
     }
 }

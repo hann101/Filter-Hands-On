@@ -4,7 +4,6 @@ package com.example.filter_exercise.interceptor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,7 +26,10 @@ public class Ex1_Interceptor implements HandlerInterceptor {
         String session = (String) request.getSession().getAttribute("login");
         if (session == null) {
             log.info("[Interceptor] 미인증 사용자 요청");
-            response.sendRedirect("/login/fail");
+//            response.sendRedirect("/login/fail");
+//            request.getRequestDispatcher()
+            request.getRequestDispatcher("/login/fail").forward(request, response);
+
             return false;
         }
         return true; //false 진행X
@@ -36,7 +38,6 @@ public class Ex1_Interceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         log.info("[Interceptor postHandle] [{}]", modelAndView);
-        HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
     }
 
     @Override
@@ -47,6 +48,5 @@ public class Ex1_Interceptor implements HandlerInterceptor {
         if (ex != null) {
             log.error("[Interceptor afterCompletion] afterCompletion error!!", ex);
         }
-        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }
 }

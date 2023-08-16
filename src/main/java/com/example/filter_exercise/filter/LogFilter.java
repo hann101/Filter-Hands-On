@@ -8,25 +8,24 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Slf4j
-public class Ex1_Filter implements Filter {
+public class LogFilter implements Filter{
     /*
-        Log Filter 예제
+        ex1) Log Filter 예제
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        String requestURI = httpServletRequest.getRequestURI();
+        HttpServletRequest httpServeltRequest = (HttpServletRequest) request;
+        String requestURI = ((HttpServletRequest) request).getRequestURI();
+        String uuid = UUID.randomUUID().toString().substring(0, 8);
 
-        String uuid = UUID.randomUUID().toString().substring(0,8);
-
-        request.setAttribute("uuid", uuid);
+        request.setAttribute("uuid",uuid);
 
         try {
-            log.info("[Filter 1] REQUEST [{}][{}]", request.getAttribute("uuid"), requestURI);
+            log.info("[Filter 1] REQUEST [{}][{}]", uuid, requestURI);
             chain.doFilter(request, response);
-        } catch (Exception e) {
+        }catch (Exception e){
             throw e;
-        } finally {
+        }finally {
             log.info("[Filter 1] RESPONSE [{}][{}]", uuid, requestURI);
         }
     }

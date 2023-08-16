@@ -1,9 +1,9 @@
 package com.example.filter_exercise.config;
 
 
-import com.example.filter_exercise.filter.Ex1_Filter;
-import com.example.filter_exercise.filter.Ex2_Filter;
-import com.example.filter_exercise.filter.Ex3_Filter;
+import com.example.filter_exercise.filter.LogFilter;
+import com.example.filter_exercise.filter.XssFilter;
+import com.example.filter_exercise.filter.exOncePerRequestFilter;
 import com.example.filter_exercise.interceptor.Ex1_Interceptor;
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.Filter;
@@ -23,12 +23,12 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public FilterRegistrationBean<Filter> logFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new Ex1_Filter());
+        filterRegistrationBean.setFilter(new LogFilter());
         filterRegistrationBean.setOrder(1);
         filterRegistrationBean.addUrlPatterns("/*");
-
-        //추가설명 필요함
         filterRegistrationBean.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD));
+
+
         return filterRegistrationBean;
     }
 
@@ -38,22 +38,24 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public FilterRegistrationBean<Filter> xssFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new Ex2_Filter());
+        filterRegistrationBean.setFilter(new XssFilter());
         filterRegistrationBean.setOrder(2);
         filterRegistrationBean.addUrlPatterns("/*");
+
         return filterRegistrationBean;
     }
+
 
     /*
         OncePerRequestFilter
      */
     @Bean
-    public FilterRegistrationBean<Filter> exOncePerRequestFilter() {
+    public FilterRegistrationBean<Filter> oncePerRequestFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new Ex3_Filter());
+        filterRegistrationBean.setFilter(new exOncePerRequestFilter());
         filterRegistrationBean.setOrder(3);
         filterRegistrationBean.addUrlPatterns("/*");
-        filterRegistrationBean.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD));
+
         return filterRegistrationBean;
     }
 
@@ -66,6 +68,5 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/interceptor/**")
                 .excludePathPatterns("/login/**");
-        WebMvcConfigurer.super.addInterceptors(registry);
     }
 }

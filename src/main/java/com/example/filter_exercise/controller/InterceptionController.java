@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class InterceptionController {
     @GetMapping("/interceptor")
     public String interceptorTest() {
-        return "test";
+        return "interceptor success";
     }
 
     @GetMapping("/login")
@@ -27,7 +27,7 @@ public class InterceptionController {
         HttpSession session = request.getSession();
         String result = "not allowed";
         ;
-        if (session == null) {
+        if (session != null) {
             result = (String) session.getAttribute("login");
         }
         return result;
