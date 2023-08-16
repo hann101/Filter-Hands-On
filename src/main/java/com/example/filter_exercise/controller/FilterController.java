@@ -15,12 +15,18 @@ import java.io.IOException;
 @RestController
 public class FilterController {
 
+    @GetMapping("/test")
+    public String test() {;
+        log.info("[Controller]");
+        return "Controller";
+    }
+
     /*
         Filter 예시
         http://localhost:8080/xss?script=<script>black<script>
      */
     @GetMapping("/xss")
-    public String test(@RequestParam String script) {;
+    public String xss(@RequestParam String script) {;
         log.info("[Controller] Xss Filtering Result :[{}]",script);
         return "XSS";
     }

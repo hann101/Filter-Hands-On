@@ -16,7 +16,7 @@ public class exOncePerRequestFilter extends OncePerRequestFilter {
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.info("[Filter 3] OncePerRequestFilter 동작확인");
+        log.info("[Filter 3] OncePerRequestFilter 동작확인 [{}]",request.getAttribute("uuid"));
         filterChain.doFilter(request, response);
     }
 
